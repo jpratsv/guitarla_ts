@@ -3,6 +3,7 @@ import Header from './components/Header';
 import AddGuitarModal from './components/AddGuitarModal';
 import type { Schema } from '../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
+import './App.css'
 
 const client = generateClient<Schema>();
 
@@ -61,7 +62,7 @@ export default function App() {
                             <div key={guitar.id} className="col-md-4 mb-4">
                                 <img
                                     className="img-fluid"
-                                    src={`/img/${guitar.image ? guitar.image : 'default-image'}.jpg`}
+                                    src={`../public/img/${guitar.imageUrl ? guitar.imageUrl : 'default-image'}.jpg`}      
                                     alt={guitar.name || "imagen guitarra"}
                                 />
                                 <h3>{guitar.name}</h3>

@@ -1,6 +1,6 @@
 // AddGuitarButton.tsx
 import React from 'react';
-
+import './AddGuitarButton.css'
 interface AddGuitarButtonProps {
   onAddGuitar: () => void; // Función que manejará el evento de añadir una guitarra
 }
