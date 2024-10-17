@@ -7,6 +7,80 @@
   text-transform: uppercase;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 20px; /* Asegura que todas las etiquetas comiencen con un margen de 20px */
+}
+
+.form-group input,
+.form-group textarea {
+  width: calc(100% - 40px); /* Ajusta el ancho teniendo en cuenta el margen */
+  padding: 8px;
+  margin-left: 20px; /* Asegura que los campos de entrada también tengan un margen de 20px */
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px; /* Para alinear los botones con los campos de entrada */
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-dark {
+  background-color: #333;
+  color: white;
+}
+
+.btn-light {
+  background-color: #ccc;
+  color: black;
+}
+
 .carrito {
   background-color: transparent;
   border: none;
