@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Schema } from '../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
-import './AddGuitarList.css'
+import GuitarCard from './GuitarCard';
+import './GuitarList.css';
 
 const client = generateClient<Schema>();
 
@@ -12,16 +13,11 @@ export default function GuitarList() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    // Obtener las guitarras desde Amplify
     const fetchGuitars = async () => {
         try {
             setLoading(true);
             const { data: items } = await client.models.Guitar.list();
-            if (items) {
-                setGuitars(items);
-            } else {
-                setGuitars([]);
-            }
+            setGuitars(items || []);
         } catch (error) {
             console.error('Error obteniendo guitarras:', error);
             setError('No se pudieron obtener las guitarras.');
@@ -44,7 +40,17 @@ export default function GuitarList() {
                     <p className="text-center">No hay guitarras disponibles en este momento.</p>
                 ) : (
                     guitars.map((guitar) => (
-                        <GuitarCard key={guitar.id} guitar={guitar} addToCart={(guitar) => console.log(guitar)} />
+                        <div key={guitar.id} className="col-md-4 mb-4">
+                            <GuitarCard
+                                guitar={{
+                                    id: guitar.id,
+                                    name: guitar.name,
+                                    description: guitar.description ?? 'Sin descripción',
+                                    price: guitar.price,
+                                    imageUrl: guitar.imageUrl ?? 'default-image-url.jpg',
+                                }}
+                            />
+                        </div>
                     ))
                 )}
             </div>
