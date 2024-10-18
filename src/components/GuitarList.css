@@ -1,42 +1,110 @@
 /* Archivo: GuitarList.css */
 
+.guitar-list {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que las tarjetas se envuelvan si no caben en una fila */
+  justify-content: space-evenly; /* Asegurar que las tarjetas se distribuyan equitativamente */
+  align-items: stretch; /* Alinear las tarjetas para que todas tengan la misma altura */
+  gap: 20px; /* Añadir espacio entre las tarjetas */
+  padding: 20px; /* Padding para que haya espacio entre el borde del contenedor y las tarjetas */
+  box-sizing: border-box; /* Incluir el padding y el borde dentro del ancho del contenedor */
+  width: 100%; /* Asegurar que el contenedor ocupe el ancho completo */
+}
+
+.text-center {
+  text-align: center; !important;
+} 
+
+ h2, .h2
+{
+  font-size: calc(1.485rem + 2.82vw);
+  color: #e99401;
+  font-family: Outfit, sans-serif;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: .5rem;
+  margin-top: 0;
+}
+
 .carrito {
-     background-color: transparent;
-     border: none;
-     max-width: 2rem;
-     position: relative;
-     z-index: 100;
-   }
-   
-   .carrito #carrito {
-     display: none;
-     position: absolute;
-     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-   }
-   
-   .carrito:hover #carrito {
-     display: block;
-     background-color: white;
-     padding: 10px;
-     height: fit-content;
-     min-width: 350px;
-     width: fit-content;
-     top: 100%;
-     right: 0;
-   }
-   
-   #carrito img {
-     width: 30px;
-   }
-   
-   #carrito .btn-danger {
-     font-size: 10px;
-     border-radius: 50%;
-     padding: 5px 9px;
-   }
-   
-   #carrito .btn-dark {
-     padding: 0 2px;
-     margin: 0 3px;
-   }
-   
+  background-color: transparent;
+  border: none;
+  max-width: 2rem;
+  position: relative;
+  z-index: 100;
+}
+
+.carrito #carrito {
+  display: none;
+  position: absolute;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.carrito:hover #carrito {
+  display: block;
+  background-color: white;
+  padding: 10px;
+  height: fit-content;
+  min-width: 350px;
+  width: fit-content;
+  top: 100%;
+  right: 0;
+}
+
+#carrito img {
+  width: 30px;
+}
+
+#carrito .btn-danger {
+  font-size: 10px;
+  border-radius: 50%;
+  padding: 5px 9px;
+}
+
+#carrito .btn-dark {
+  padding: 0 2px;
+  margin: 0 3px;
+}
+
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.col-md-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.col-lg-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+.my-4 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
+}
+
+
+.align-items-center {
+  align-items: center !important;
+}

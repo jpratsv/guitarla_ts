@@ -31,16 +31,16 @@ export default function GuitarList() {
     }, []);
 
     return (
-        <div className="container-xl">
-            <h2>Nuestra Colección</h2>
-            <div className="row">
+        <div className="container-xl mt-5">
+            <h2 className="text-center">Nuestra Colección</h2>
+            <div className="row mt-5">
                 {loading && <p className="text-center">Cargando guitarras...</p>}
                 {error && <p className="text-center text-danger">{error}</p>}
                 {guitars.length === 0 && !loading && !error ? (
                     <p className="text-center">No hay guitarras disponibles en este momento.</p>
                 ) : (
                     guitars.map((guitar) => (
-                        <div key={guitar.id} className="col-md-4 mb-4">
+                        <div key={guitar.id} className="col-md-6 col-lg-4 my-4 row align-items-center" >
                             <GuitarCard
                                 guitar={{
                                     id: guitar.id,

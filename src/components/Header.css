@@ -18,7 +18,7 @@
      display: flex;
      align-items: center;
      justify-content: space-between;
-     width: 150%;
+     width: 100%;
    }
    
    .logo {
@@ -42,6 +42,7 @@
      display: flex;
      align-items: center;
      position: relative;
+     cursor: pointer;
    }
    
    .cart-icon img {
@@ -56,25 +57,30 @@
      top: 100%;
      background-color: white;
      padding: 10px;
-     width: 300px;
+     width: 400px;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
      z-index: 100;
+     border-radius: 8px;
    }
    
    .cart-icon:hover .cart-details {
      display: block;
    }
    
-   .cart-details ul {
-     list-style-type: none;
-     padding: 0;
-     margin: 0;
+   .cart-details .cart-table {
+     width: 100%;
+     border-collapse: collapse;
    }
    
-   .cart-details li {
-     display: flex;
-     justify-content: space-between;
-     margin-bottom: 10px;
+   .cart-details .cart-table th, .cart-details .cart-table td {
+     padding: 10px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+   }
+   
+   .cart-details .cart-item-image {
+     width: 50px;
+     height: auto;
    }
    
    .cart-details button {
@@ -83,19 +89,36 @@
      padding: 0.5rem;
      font-size: 0.9rem;
      cursor: pointer;
+     border-radius: 4px;
    }
    
-   .cart-details .total {
-     font-weight: bold;
-     text-align: right;
-     margin-top: 1rem;
+   .cart-details button:hover {
+     background-color: #e0a800;
    }
    
-   .cart-details button.vaciar {
+   .cart-details .clear-cart-button {
      background-color: #dc3545;
      color: white;
      width: 100%;
      margin-top: 1rem;
+     padding: 0.7rem;
+     border-radius: 4px;
+     font-weight: bold;
+   }
+   
+   .cart-details .clear-cart-button:hover {
+     background-color: #c82333;
+   }
+   
+   .empty-cart {
+     text-align: center;
+     font-size: 1.8rem; /* Tamaño de fuente más grande */
+     color: #333;
+     padding: 20px;
+     font-weight: bold;
+     font-family: 'Arial', sans-serif; /* Tipo de letra similar al resto de la aplicación */
+     background-color: #adabaa; /* Fondo gris suave para diferenciarlo del fondo blanco */
+     border-radius: 8px;
    }
    
    /* Ajustes para el fondo y los elementos de la cabecera en pantallas grandes */
@@ -113,37 +136,4 @@
      }
    }
    
-   /* Estilo para la colección de guitarras */
-   .guitar-card {
-     text-align: center;
-     margin: 20px;
-   }
-   
-   .guitar-card img {
-     max-width: 100%; /* Asegurarnos de que la imagen no exceda el contenedor */
-     height: auto;
-   }
-   
-   .guitar-card h3 {
-     font-size: 1.5rem;
-     color: #333;
-   }
-   
-   .guitar-card p {
-     font-size: 1rem;
-     color: #666;
-   }
-   
-   .guitar-card button {
-     background-color: #ffc107;
-     border: none;
-     padding: 0.5rem 1rem;
-     cursor: pointer;
-     font-size: 1rem;
-     margin-top: 10px;
-   }
-   
-   .guitar-card button:hover {
-     background-color: #e0a800;
-   }
    
