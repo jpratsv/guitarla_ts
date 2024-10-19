@@ -1,0 +1,139 @@
+/* Archivo: Header.css */
+
+.header {
+     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+     url("../../public/img/header.jpg");
+     background-position: center;
+     background-size: cover;
+     color: #fff;
+     padding: 2rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     position: relative;
+     height: 100px; /* Reducimos la altura para que la imagen no sea tan grande */
+   }
+   
+   .container-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 100%;
+   }
+   
+   .logo {
+     display: flex;
+     align-items: center;
+   }
+   
+   .logo img {
+     max-height: 114px;
+     margin-right: 1rem;
+   }
+   
+   .main-nav h1 {
+     font-size: 2rem;
+     font-weight: bold;
+     color: #ffc107; /* Color amarillo */
+     margin: 0;
+   }
+   
+   .cart-icon {
+     display: flex;
+     align-items: center;
+     position: relative;
+     cursor: pointer;
+   }
+   
+   .cart-icon img {
+     width: 40px; /* Tamaño ajustado del icono del carrito */
+     cursor: pointer;
+   }
+   
+   .cart-details {
+     display: none;
+     position: absolute;
+     right: 0;
+     top: 100%;
+     background-color: white;
+     padding: 10px;
+     width: 400px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     z-index: 100;
+     border-radius: 8px;
+   }
+   
+   .cart-icon:hover .cart-details {
+     display: block;
+   }
+   
+   .cart-details .cart-table {
+     width: 100%;
+     border-collapse: collapse;
+   }
+   
+   .cart-details .cart-table th, .cart-details .cart-table td {
+     padding: 10px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+   }
+   
+   .cart-details .cart-item-image {
+     width: 50px;
+     height: auto;
+   }
+   
+   .cart-details button {
+     background-color: #ffc107;
+     border: none;
+     padding: 0.5rem;
+     font-size: 0.9rem;
+     cursor: pointer;
+     border-radius: 4px;
+   }
+   
+   .cart-details button:hover {
+     background-color: #e0a800;
+   }
+   
+   .cart-details .clear-cart-button {
+     background-color: #dc3545;
+     color: white;
+     width: 100%;
+     margin-top: 1rem;
+     padding: 0.7rem;
+     border-radius: 4px;
+     font-weight: bold;
+   }
+   
+   .cart-details .clear-cart-button:hover {
+     background-color: #c82333;
+   }
+   
+   .empty-cart {
+     text-align: center;
+     font-size: 1.8rem; /* Tamaño de fuente más grande */
+     color: #333;
+     padding: 20px;
+     font-weight: bold;
+     font-family: 'Arial', sans-serif; /* Tipo de letra similar al resto de la aplicación */
+     background-color: #adabaa; /* Fondo gris suave para diferenciarlo del fondo blanco */
+     border-radius: 8px;
+   }
+   
+   /* Ajustes para el fondo y los elementos de la cabecera en pantallas grandes */
+   @media (min-width: 992px) {
+     .header {
+       height: 150px; /* Un poco más alta en pantallas grandes */
+     }
+   
+     .header .logo-image {
+       height: 114px;
+     }
+   
+     .header .title {
+       font-size: 2.5rem; /* Tamaño del título ajustado para pantallas grandes */
+     }
+   }
+   
+   

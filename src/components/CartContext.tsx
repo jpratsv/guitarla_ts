@@ -37,19 +37,25 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [cart, setCart] = useState<Guitar[]>([]);
 
     const addToCart = (guitar: Guitar) => {
-     setCart((prevCart) => {
-       const existingItem = prevCart.find(item => item.id === guitar.id);
-       if (existingItem) {
-         return prevCart.map(item =>
-           item.id === guitar.id
-             ? { ...item, quantity: (item.quantity ?? 0) + 1 }
-             : item
-         );
-       }
-       return [...prevCart, { ...guitar, quantity: 1 }];
-     });
-   };
-   
+        if (!guitar.id || !guitar.name || guitar.price == null) {
+          console.error("Datos incompletos, no se puede agregar al carrito");
+          return;
+        }
+        setCart((prevCart) => {
+          const existingItem = prevCart.find(item => item.id === guitar.id);
+          if (existingItem) {
+            return prevCart.map(item =>
+              item.id === guitar.id
+                ? { ...item, quantity: (item.quantity ?? 0) + 1 }
+                : item
+            );
+          }
+          return [...prevCart, { ...guitar, quantity: 1 }];
+        });
+      };
+      
+      
+    
 
     const removeFromCart = (id: string) => {
         setCart((prevCart) => prevCart.filter(item => item.id !== id));
@@ -66,14 +72,17 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
      };
 
      const decreaseQuantity = (id: string) => {
-          setCart((prevCart) =>
-               prevCart.map(item =>
-               item.id === id && (item.quantity ?? 0) > 1
-                    ? { ...item, quantity: (item.quantity ?? 0) - 1 }
-                    : item
-               )
-          );
-     };
+        setCart((prevCart) =>
+            prevCart
+                .map(item =>
+                    item.id === id && (item.quantity ?? 0) > 1
+                        ? { ...item, quantity: (item.quantity ?? 0) - 1 }
+                        : item
+                )
+                .filter(item => item.quantity !== 0) // Filtrar aquellos que tengan cantidad cero
+        );
+    };
+    
 
     const clearCart = () => {
         setCart([]);

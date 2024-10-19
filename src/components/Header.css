@@ -37,103 +37,272 @@
      color: #ffc107; /* Color amarillo */
      margin: 0;
    }
-   
-   .cart-icon {
-     display: flex;
-     align-items: center;
-     position: relative;
-     cursor: pointer;
-   }
-   
-   .cart-icon img {
-     width: 40px; /* Tamaño ajustado del icono del carrito */
-     cursor: pointer;
-   }
-   
-   .cart-details {
-     display: none;
-     position: absolute;
-     right: 0;
-     top: 100%;
-     background-color: white;
-     padding: 10px;
-     width: 400px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     z-index: 100;
-     border-radius: 8px;
-   }
-   
-   .cart-icon:hover .cart-details {
-     display: block;
-   }
-   
-   .cart-details .cart-table {
-     width: 100%;
-     border-collapse: collapse;
-   }
-   
-   .cart-details .cart-table th, .cart-details .cart-table td {
-     padding: 10px;
-     text-align: left;
-     border-bottom: 1px solid #ddd;
-   }
-   
-   .cart-details .cart-item-image {
-     width: 50px;
-     height: auto;
-   }
-   
-   .cart-details button {
-     background-color: #ffc107;
-     border: none;
-     padding: 0.5rem;
-     font-size: 0.9rem;
-     cursor: pointer;
-     border-radius: 4px;
-   }
-   
-   .cart-details button:hover {
-     background-color: #e0a800;
-   }
-   
-   .cart-details .clear-cart-button {
-     background-color: #dc3545;
-     color: white;
-     width: 100%;
-     margin-top: 1rem;
-     padding: 0.7rem;
-     border-radius: 4px;
-     font-weight: bold;
-   }
-   
-   .cart-details .clear-cart-button:hover {
-     background-color: #c82333;
-   }
-   
-   .empty-cart {
-     text-align: center;
-     font-size: 1.8rem; /* Tamaño de fuente más grande */
-     color: #333;
-     padding: 20px;
-     font-weight: bold;
-     font-family: 'Arial', sans-serif; /* Tipo de letra similar al resto de la aplicación */
-     background-color: #adabaa; /* Fondo gris suave para diferenciarlo del fondo blanco */
-     border-radius: 8px;
-   }
-   
-   /* Ajustes para el fondo y los elementos de la cabecera en pantallas grandes */
-   @media (min-width: 992px) {
-     .header {
-       height: 150px; /* Un poco más alta en pantallas grandes */
-     }
-   
-     .header .logo-image {
-       height: 114px;
-     }
-   
-     .header .title {
-       font-size: 2.5rem; /* Tamaño del título ajustado para pantallas grandes */
-     }
-   }
-   
-   
+  /*-------------------------------------------------------------------------------------------------------*/
+  /*      Tratamiento del carrito  
+  /*-------------------------------------------------------------------------------------------------------*/
+
+  :root {
+    --bs-white-rgb: 255, 255, 255;
+    --bs-body-color: #212529;
+    --bs-border-color: #dee2e6;
+  }
+
+  .btn-dark {
+    text-transform: uppercase;
+  }
+
+  #carrito {
+    box-shadow: rgba(0, 0, 0, .1) 0 10px 15px -3px;
+    display: block;
+    height: fit-content;
+    left: unset;
+    margin-left: unset;
+    margin-right: unset;
+    min-width: 350px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: fit-content;
+  }
+
+  #carrito img {
+    width: 30px;
+  }
+
+  #carrito .btn-danger {
+    border-radius: 50%;
+    font-size: 10px;
+    padding: 5px 9px;
+  }
+
+  #carrito .btn-dark {
+    margin: 0 3px;
+    padding: 0 2px;
+  }
+
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+
+  .inherited-styles-for-exported-element {
+    color: #212529;
+    font-family: Outfit, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  table {
+    border-collapse: collapse;
+    caption-side: bottom;
+  }
+
+  th {
+    text-align: -webkit-match-parent;
+  }
+
+  tbody, th, thead {
+    border: 0 solid;
+    border-color: inherit;
+  }
+
+  td, tr {
+    border: 0 solid;
+    border-color: inherit;
+  }
+
+  button:focus:not(:focus-visible) {
+    outline: 0;
+  }
+
+  button {
+    margin: 0;
+    text-transform: none;
+  }
+
+  [type=button], button {
+    appearance: button;
+  }
+
+  [type=button]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  .img-fluid {
+    height: auto;
+    max-width: 100%;
+  }
+
+  .table {
+    border-color: #dee2e6;
+    color: var(--bs-table-color);
+    margin-bottom: 1rem;
+    vertical-align: top;
+    --bs-table-accent-bg: transparent;
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--bs-body-color);
+  }
+
+  .table>:not(caption)>*>* {
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    padding: .5rem;
+  }
+
+  .table>tbody {
+    vertical-align: inherit;
+  }
+
+  .table>thead {
+    vertical-align: bottom;
+  }
+
+  .btn, .btn:hover {
+    border-color: #262626;
+  }
+
+  .btn {
+    background-color: var(--bs-btn-bg);
+    border-image: none 100% 1 0 stretch;
+    border-radius: var(--bs-btn-border-radius);
+    border-style: solid;
+    border-width: 1px;
+    color: var(--bs-btn-color);
+    cursor: pointer;
+    display: inline-block;
+    font-family: var(--bs-btn-font-family);
+    font-size: var(--bs-btn-font-size);
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    text-align: center;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    user-select: none;
+    vertical-align: middle;
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+    --bs-btn-disabled-opacity: 0.65;
+    --bs-btn-border-radius: 0;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-font-weight: 900;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-family: ;
+    transition-behavior: normal, normal, normal, normal;
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    .btn {
+      transition: none 0s;
+      transition-behavior: normal;
+    }
+  }
+
+  .btn:hover {
+    background-color: var(--bs-btn-hover-bg);
+    color: var(--bs-btn-hover-color);
+  }
+
+  .btn:focus-visible {
+    background-color: var(--bs-btn-hover-bg);
+    border-color: #262626;
+    box-shadow: var(--bs-btn-focus-box-shadow);
+    color: var(--bs-btn-hover-color);
+    outline: 0;
+  }
+
+  .btn:first-child:active {
+    background-color: var(--bs-btn-active-bg);
+    border-color: #dc3545;
+    color: var(--bs-btn-active-color);
+  }
+
+  .btn:first-child:active, :not(.btn-check)+.btn:active {
+    background-color: var(--bs-btn-active-bg);
+    border-color: #262626;
+    color: var(--bs-btn-active-color);
+  }
+
+  .btn:first-child:active:focus-visible {
+    box-shadow: var(--bs-btn-focus-box-shadow);
+  }
+
+  .btn:first-child:active:focus-visible, :not(.btn-check)+.btn:active:focus-visible {
+    box-shadow: var(--bs-btn-focus-box-shadow);
+  }
+
+  .btn:disabled {
+    background-color: var(--bs-btn-disabled-bg);
+    border-color: #262626;
+    color: var(--bs-btn-disabled-color);
+    opacity: var(--bs-btn-disabled-opacity);
+    pointer-events: none;
+  }
+
+  .btn-danger, .btn-dark {
+    --bs-btn-disabled-color: #FFF;
+    --bs-btn-active-color: #FFF;
+    --bs-btn-hover-color: #FFF;
+    --bs-btn-color: #FFF;
+  }
+
+  .btn-danger {
+    --bs-btn-disabled-bg: #dc3545;
+    --bs-btn-active-bg: #b02a37;
+    --bs-btn-focus-shadow-rgb: 225, 83, 97;
+    --bs-btn-hover-bg: #bb2d3b;
+    --bs-btn-bg: #dc3545;
+  }
+
+  .btn-dark {
+    --bs-btn-disabled-bg: #262626;
+    --bs-btn-active-bg: #515151;
+    --bs-btn-focus-shadow-rgb: 71, 71, 71;
+    --bs-btn-hover-bg: #474747;
+    --bs-btn-bg: #262626;
+  }
+
+  .w-100 {
+    width: 100% !important;
+  }
+
+  .align-items-start {
+    align-items: flex-start !important;
+  }
+
+  .mt-3 {
+    margin-top: 1rem !important;
+  }
+
+  .p-2 {
+    padding: .5rem !important;
+  }
+
+  .p-3 {
+    padding: 1rem !important;
+  }
+
+  .gap-4 {
+    column-gap: 1.5rem !important;
+    row-gap: 1.5rem !important;
+  }
+
+  .fw-bold {
+    font-weight: 700 !important;
+  }
+
+  .text-end {
+    text-align: right !important;
+  }
+
+  .bg-white {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+  }
+

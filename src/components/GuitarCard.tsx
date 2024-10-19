@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from './CartContext';
-import './GuitarList.css';
+import './GuitarCard.css';
+
 
 interface GuitarCardProps {
   guitar: {
@@ -23,7 +24,7 @@ const GuitarCard: React.FC<GuitarCardProps> = ({ guitar }) => {
             alt="imagen guitarra" 
           />
       </div>
-      <div className="col-8">
+      <div className="col-8 inherited-styles-for-exported-element">
           <h3 className="text-black fs-4 fw-bold text-uppercase">{guitar.name}</h3>
           <p>{guitar.description}</p>
           <p className="fw-black text-primary fs-3">${guitar.price}</p>
