@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useReducer, ReactNode, useEffect } from 'react';
 
 // Definir el tipo de guitarra que usaremos en el carrito
 interface Guitar {
@@ -6,94 +6,91 @@ interface Guitar {
     name: string;
     price: number;
     imageUrl?: string;
-    quantity?: number;
+    quantity: number;  // Hacemos que quantity siempre sea un valor definido
 }
 
-// Definir los tipos de las funciones y el estado
-interface CartContextProps {
+// Definir las acciones que se pueden realizar en el carrito
+type CartAction = 
+    | { type: 'ADD_TO_CART'; payload: Guitar }
+    | { type: 'REMOVE_FROM_CART'; payload: string }
+    | { type: 'INCREASE_QUANTITY'; payload: string }
+    | { type: 'DECREASE_QUANTITY'; payload: string }
+    | { type: 'CLEAR_CART' };
+
+// Definir el estado del carrito
+interface CartState {
     cart: Guitar[];
-    addToCart: (guitar: Guitar) => void;
-    removeFromCart: (id: string) => void;
-    increaseQuantity: (id: string) => void;
-    decreaseQuantity: (id: string) => void;
-    clearCart: () => void;
-    cartTotal: number;  // Añadimos cartTotal
 }
 
-// Crear el contexto con valores predeterminados
-const CartContext = createContext<CartContextProps | undefined>(undefined);
-
-// Crear un hook personalizado para usar el contexto del carrito
-export const useCart = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error("useCart debe ser utilizado dentro de un CartProvider");
+// Reducer para manejar las acciones del carrito
+const cartReducer = (state: CartState, action: CartAction): CartState => {
+    switch (action.type) {
+        case 'ADD_TO_CART': {
+            const existingItemIndex = state.cart.findIndex((item) => item.id === action.payload.id);
+            if (existingItemIndex !== -1) {
+                return {
+                    cart: state.cart.map((item, index) =>
+                        index === existingItemIndex
+                            ? { ...item, quantity: item.quantity + (action.payload.quantity || 1) }
+                            : item
+                    ),
+                };
+            } else {
+                return {
+                    cart: [...state.cart, { ...action.payload, quantity: action.payload.quantity || 1 }],
+                };
+            }
+        }
+        case 'REMOVE_FROM_CART':
+            return {
+                cart: state.cart.filter(item => item.id !== action.payload),
+            };
+        case 'INCREASE_QUANTITY':
+            return {
+                cart: state.cart.map(item =>
+                    item.id === action.payload
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                ),
+            };
+        case 'DECREASE_QUANTITY':
+            return {
+                cart: state.cart.map(item =>
+                    item.id === action.payload && item.quantity > 1
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                ).filter(item => item.quantity > 0),
+            };
+        case 'CLEAR_CART':
+            return { cart: [] };
+        default:
+            return state;
     }
-    return context;
 };
 
-// Proveedor del carrito, que envuelve la aplicación y comparte el estado del carrito
+// Crear el contexto con valores predeterminados
+const CartContext = createContext<{
+    state: CartState;
+    dispatch: React.Dispatch<CartAction>;
+} | undefined>(undefined);
+
+// Proveedor del contexto del carrito
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [cart, setCart] = useState<Guitar[]>([]);
+    const [state, dispatch] = useReducer(cartReducer, { cart: [] }, () => {
+        const localData = localStorage.getItem("cart");
+        return localData ? JSON.parse(localData) : { cart: [] };
+    });
 
-    const addToCart = (guitar: Guitar) => {
-        if (!guitar.id || !guitar.name || guitar.price == null) {
-          console.error("Datos incompletos, no se puede agregar al carrito");
-          return;
-        }
-        setCart((prevCart) => {
-          const existingItem = prevCart.find(item => item.id === guitar.id);
-          if (existingItem) {
-            return prevCart.map(item =>
-              item.id === guitar.id
-                ? { ...item, quantity: (item.quantity ?? 0) + 1 }
-                : item
-            );
-          }
-          return [...prevCart, { ...guitar, quantity: 1 }];
-        });
-      };
-      
-      
-    
-
-    const removeFromCart = (id: string) => {
-        setCart((prevCart) => prevCart.filter(item => item.id !== id));
-    };
-
-    const increaseQuantity = (id: string) => {
-          setCart((prevCart) =>
-          prevCart.map(item =>
-          item.id === id
-               ? { ...item, quantity: (item.quantity ?? 0) + 1 }
-               : item
-          )
-          );
-     };
-
-     const decreaseQuantity = (id: string) => {
-        setCart((prevCart) =>
-            prevCart
-                .map(item =>
-                    item.id === id && (item.quantity ?? 0) > 1
-                        ? { ...item, quantity: (item.quantity ?? 0) - 1 }
-                        : item
-                )
-                .filter(item => item.quantity !== 0) // Filtrar aquellos que tengan cantidad cero
-        );
-    };
-    
-
-    const clearCart = () => {
-        setCart([]);
-    };
-
-    // Función para calcular el total del carrito
-    const cartTotal = cart.reduce((total, item) => total + item.price * (item.quantity ?? 0), 0);
+    // Efecto para guardar el carrito en localStorage cuando cambia el estado
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(state));
+    }, [state]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, cartTotal }}>
+        <CartContext.Provider value={{ state, dispatch }}>
             {children}
         </CartContext.Provider>
     );
 };
+
+export default CartContext;

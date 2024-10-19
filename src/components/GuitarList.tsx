@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';  // Importar desde React
 import type { Schema } from '../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
 import GuitarCard from './GuitarCard';
+import { useCart } from './useCart';
 import './GuitarList.css';
 
+// Inicializar el cliente para trabajar con Amplify
 const client = generateClient<Schema>();
 
 type GuitarType = Schema['Guitar']['type'];
@@ -13,6 +15,9 @@ export default function GuitarList() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const { dispatch } = useCart(); // Añadir interacción con el carrito
+
+    // Función para obtener las guitarras
     const fetchGuitars = async () => {
         try {
             setLoading(true);
@@ -26,9 +31,24 @@ export default function GuitarList() {
         }
     };
 
+    // Efecto para cargar las guitarras al montar el componente
     useEffect(() => {
         fetchGuitars();
     }, []);
+
+    // Función para añadir una guitarra al carrito
+    const handleAddToCart = (guitar: GuitarType) => {
+        // Asegurarse de que el tipo coincida con el esperado por el reducer
+        const guitarToAdd = {
+            id: guitar.id,
+            name: guitar.name,
+            price: guitar.price,
+            imageUrl: guitar.imageUrl ?? 'default-image-url.jpg',
+            quantity: 1, // Añadir el campo `quantity`
+        };
+
+        dispatch({ type: 'ADD_TO_CART', payload: guitarToAdd });
+    };
 
     return (
         <div className="container-xl mt-5">
@@ -40,7 +60,7 @@ export default function GuitarList() {
                     <p className="text-center">No hay guitarras disponibles en este momento.</p>
                 ) : (
                     guitars.map((guitar) => (
-                        <div key={guitar.id} className="col-md-6 col-lg-4 my-4 row align-items-center" >
+                        <div key={guitar.id} className="col-md-6 col-lg-4 my-4 row align-items-center">
                             <GuitarCard
                                 guitar={{
                                     id: guitar.id,
@@ -50,6 +70,13 @@ export default function GuitarList() {
                                     imageUrl: guitar.imageUrl ?? 'default-image-url.jpg',
                                 }}
                             />
+                            {/* Botón para añadir al carrito */}
+                            <button 
+                                className="btn btn-primary mt-3" 
+                                onClick={() => handleAddToCart(guitar)}
+                            >
+                                Añadir al carrito
+                            </button>
                         </div>
                     ))
                 )}
