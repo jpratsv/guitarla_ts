@@ -48,8 +48,8 @@ const Header: React.FC = () => {
                 onMouseLeave={handleMouseLeave}
             >
               <img 
-                className="img-fluid" 
-                src="../../public/img/carrito.png" 
+                className="img-fluid inherited-styles-for-exported-element" 
+                src="../public/img/carrito.png" 
                 alt="imagen carrito"
               />
 
