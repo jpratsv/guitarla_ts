@@ -42,6 +42,7 @@ export default function GuitarList() {
         const guitarToAdd = {
             id: guitar.id,
             name: guitar.name,
+            description: guitar.description,
             price: guitar.price,
             imageUrl: guitar.imageUrl ?? 'default-image-url.jpg',
             quantity: 1, // Añadir el campo `quantity`
@@ -65,7 +66,7 @@ export default function GuitarList() {
                                 guitar={{
                                     id: guitar.id,
                                     name: guitar.name,
-                                    description: guitar.description ?? 'Sin descripción',
+                                    description: guitar.description ? String(guitar.description) : 'Sin descripción',
                                     price: guitar.price,
                                     imageUrl: guitar.imageUrl ?? 'default-image-url.jpg',
                                 }}
