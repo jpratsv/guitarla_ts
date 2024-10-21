@@ -22,19 +22,29 @@ const GuitarCard: React.FC<GuitarCardProps> = ({ guitar }) => {
     };
 
     return (
-        <div className="guitar-card">
-            <img
-                src={guitar.imageUrl ? `/img/${guitar.imageUrl}` : '/img/defaultImage.jpg'}
-                alt={guitar.name}
-                className="guitar-image"
-                onError={(e) => (e.currentTarget.src = '/img/defaultImage.jpg')}
-            />
-            <h3>{guitar.name}</h3>
-            <p>${guitar.price.toFixed(2)}</p>
-            <button className="btn btn-dark" onClick={addToCart}>
-                Añadir al carrito
-            </button>
-        </div>
+        <>
+            <div className="col-4">
+                <img
+                    src={guitar.imageUrl ? `/img/${guitar.imageUrl}` : '/img/defaultImage.jpg'}
+                    alt={guitar.name}
+                    onError={(e) => (e.currentTarget.src = '/img/defaultImage.jpg')}
+                />
+            </div>
+            <div className="col-8">
+                <h3 className="text-black fs-4 fw-bold text-uppercase">{guitar.name}</h3>
+                <p>${guitar.description}</p>
+                <p className="fw-black text-primary fs-3">
+                    €{guitar.price.toFixed(2)}
+                </p>
+                <button 
+                    type="button" 
+                    className="btn btn-dark w-100"
+                    onClick={addToCart}
+                >
+                    Agregar al Carrito
+                </button>
+            </div>
+        </>
     );
 };
 
