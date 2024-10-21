@@ -40,7 +40,7 @@ export default function GuitarList() {
             <h2 className="text-center">Nuestra Colección</h2>
             <div className="row mt-5 inherited-styles-for-exported-element">
                 {loading && <p className="text-center">Cargando guitarras...</p>}
-                {error && <p className="text-center text-danger">{error}</p>}
+                {error && <p className="text-center ">{error}</p>}
                 {guitars.length === 0 && !loading && !error ? (
                     <p className="text-center">No hay guitarras disponibles en este momento.</p>
                 ) : (
