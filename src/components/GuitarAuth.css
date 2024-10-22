@@ -1,0 +1,67 @@
+/* Estilos para el componente GuitarAuth */
+
+.auth-modal {
+     max-width: 500px;
+     margin: auto;
+     border-radius: 8px;
+     overflow: hidden;
+ }
+ 
+ .auth-modal-overlay {
+     background-color: rgba(0, 0, 0, 0.5);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ 
+ .auth-modal .modal-header {
+     background-color: #343a40;
+     color: #ffffff;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 15px;
+ }
+ 
+ .auth-modal .modal-body {
+     padding: 20px;
+ }
+ 
+ .auth-modal .modal-title {
+     font-size: 1.5rem;
+     font-weight: bold;
+ }
+ 
+ .auth-modal button {
+     margin-top: 10px;
+     width: 100%;
+     background-color: #343a40;
+     color: #ffffff;
+     border: none;
+     padding: 10px;
+     border-radius: 4px;
+     cursor: pointer;
+ }
+ 
+ .auth-modal button:hover {
+     background-color: #495057;
+ }
+ 
+ .auth-modal p {
+     text-align: center;
+     font-size: 1.2rem;
+     margin-bottom: 15px;
+ }
+ 
+ .auth-modal .close-button {
+     background: none;
+     border: none;
+     color: #ffffff;
+     font-size: 1.2rem;
+     cursor: pointer;
+ }
+ 
+ .auth-modal .close-button:hover {
+     color: #dc3545;
+ }
+ 

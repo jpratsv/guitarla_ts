@@ -2,6 +2,7 @@ import React from 'react';
 import { CartProvider } from './components/CartContext';  // Importar el CartProvider
 import GuitarList from './components/GuitarList'; // Componente que muestra las guitarras
 import Header from './components/Header'; // Componente de cabecera, que incluye el carrito
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';  // Importar estilos generales de la aplicación
 
 const App: React.FC = () => {

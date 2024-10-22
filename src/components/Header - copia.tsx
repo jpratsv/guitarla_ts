@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import { useCart } from './useCart'; // Importa desde el archivo donde está el hook
-import GuitarAuth from './GuitarAuth';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { state: { cart }, dispatch } = useCart(); // Asegúrate de usar el hook correctamente
-  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Manejadores de evento para abrir/cerrar el carrito
   const handleMouseEnter = () => setIsCartOpen(true);
   const handleMouseLeave = () => setIsCartOpen(false);
-
-  // Mostrar u ocultar el modal de autenticación
-  const handleShowAuthModal = () => {
-    setShowAuthModal(true);
-  };
-  
-  const handleCloseAuthModal = () => {
-    setShowAuthModal(false);
-  };
 
   // Funciones para manejar las acciones del carrito
   const removeFromCart = (id: string) => {
@@ -143,23 +132,9 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
-
-            <div className="user-auth">
-              <button className="btn btn-link user-icon" onClick={handleShowAuthModal}>
-                <img 
-                  className="img-fluid inherited-styles-for-exported-element" 
-                  src="../public/img/iniciosesion.jpg" 
-                  alt="imagen inicio sesion"
-                />
-              </button>
-            </div>
           </nav>
         </div>
       </div>
-      {/* Componente de autenticación de usuario */}
-      {showAuthModal && (
-        <GuitarAuth show={showAuthModal} handleClose={handleCloseAuthModal} />
-      )}
     </header>
   );
 };

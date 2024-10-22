@@ -586,3 +586,37 @@
     background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
   }
 
+/*---------------------------------------------------------------------------------------------------*/
+/* Estilos para Header - Usuario Autenticación */
+/*---------------------------------------------------------------------------------------------------*/
+.user-auth {
+  margin-left: 80px;
+  background-color: transparent; 
+  border: none;
+  max-width: 100px;
+  position: relative;
+  z-index: 100;
+}
+
+.user-auth .user-icon {
+  font-size: 2rem;
+  color: #343a40;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.user-auth .user-icon:hover {
+  color: #495057;
+}
+
+.user-auth .user-icon img {
+  opacity: 0.5; /* Aumenta la transparencia a 50% */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Añade una transición para suavizar los cambios */
+  background-color: transparent; /* Asegura que el fondo sea transparente */
+}
+
+.user-auth .user-icon img:hover {
+  opacity: 1; /* Vuelve la opacidad al 100% cuando se hace hover */
+  transform: scale(1.05); /* Agrega un pequeño zoom al pasar el ratón */
+}
