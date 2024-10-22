@@ -13,10 +13,7 @@ const schema = a.schema({
    
   })
   .authorization(allow => [
-    allow.guest().to(["read"]), // Usuarios invitados (no autenticados) tienen permiso de "lectura"
-    allow.authenticated().to(["read"]), // Usuarios autenticados tienen permiso de "lectura"
-    allow.owner() // El propietario tiene permisos completos
- ])
+    allow.guest(), allow.authenticated('identityPool')])
 });
   
 export type Schema = ClientSchema<typeof schema>;
@@ -24,8 +21,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "userPool",
-
+    defaultAuthorizationMode: "identityPool"
   },
 });
 /*--------------------------------------------------------------------------------------*/  

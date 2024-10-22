@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { Schema } from '../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
 import GuitarCard from './GuitarCard';
 import './GuitarList.css';
-import { getCurrentUser } from 'aws-amplify/auth'; // Corregido: Importar Auth
 
 // Inicializar el cliente para trabajar con Amplify
 const client = generateClient<Schema>();
@@ -12,14 +11,14 @@ type GuitarType = Schema['Guitar']['type'];
 
 export default function GuitarList() {
     const [guitars, setGuitars] = useState<GuitarType[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
     // Función para obtener las guitarras
-    const fetchGuitars = async (userId: string | null) => {
+    const fetchGuitars = async () => {
         try {
             setLoading(true);
-            const { data: items } = await client.models.Guitar.list({ authMode: userId ? 'userPool' : 'identityPool' });
+            const { data: items } = await client.models.Guitar.list();
             setGuitars(items || []);
         } catch (error) {
             console.error('Error obteniendo guitarras:', error);
@@ -29,39 +28,8 @@ export default function GuitarList() {
         }
     };
 
-    // Efecto para cargar las guitarras al montar el componente
-    const fetchUserId = async () => {
-        try {
-            //const user = await Auth.currentAuthenticatedUser();
-            const { username, userId, signInDetails } = await getCurrentUser();
-
-        // Verificación del tipo de flujo de autenticación
-        if (signInDetails?.authFlowType === 'USER_SRP_AUTH') {
-            console.log('Usuario autenticado mediante Cognito (USER_SRP_AUTH).');
-        } else {
-            console.log('Usuario autenticado, pero no mediante Cognito USER_SRP_AUTH.');
-        }
-
-            //const userId = user?.attributes?.sub || null;
-            console.log('Usuario autenticado:', userId);
-            console.log('Nombre del usuario:', username);
-            console.log('Sign-in details', signInDetails);
-            await fetchGuitars(userId);
-        } catch (error) {
-            
-            console.log(error);
-            if ((error as Error)?.message === 'not authenticated' || (error as Error).message === 'The user is not authenticated') {
-                console.warn('Usuario no autenticado, redirigiendo al login...');
-                setError('Debes iniciar sesión para ver nuestras guitarras.');
-            } else {
-                console.error('Error al obtener el usuario:', error);
-            }
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        fetchUserId();
+        fetchGuitars();
     }, []);
 
     return (

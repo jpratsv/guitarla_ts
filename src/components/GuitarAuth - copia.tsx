@@ -2,7 +2,6 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Authenticator } from '@aws-amplify/ui-react';
 import './GuitarAuth.css';
-import { Hub } from 'aws-amplify/utils';
 
 interface GuitarAuthProps {
     show: boolean;
