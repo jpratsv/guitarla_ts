@@ -3,6 +3,9 @@ import type { Schema } from '../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
 import GuitarCard from './GuitarCard';
 import './GuitarList.css';
+import { getCurrentUser } from '@aws-amplify/Auth';
+
+
 
 // Inicializar el cliente para trabajar con Amplify
 const client = generateClient<Schema>();
@@ -16,10 +19,11 @@ export default function GuitarList() {
    
 
     // Función para obtener las guitarras
-    const fetchGuitars = async () => {
+    const fetchGuitars = async (userId: string | null) => {
         try {
             setLoading(true);
-            const { data: items } = await client.models.Guitar.list();
+           
+            const { data: items } = await client.models.Guitar.list({authMode:userId ? 'userPool' : 'identityPool' });
             setGuitars(items || []);
         } catch (error) {
             console.error('Error obteniendo guitarras:', error);
@@ -30,8 +34,18 @@ export default function GuitarList() {
     };
 
     // Efecto para cargar las guitarras al montar el componente
+    const fetchUserId = async () => {
+        try {
+            const { userId } = await getCurrentUser();
+            console.log('Usuario autenticado:', userId);
+            fetchGuitars(userId);
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+        }
+    };
     useEffect(() => {
-        fetchGuitars();
+
+        fetchUserId();
     }, []);
 
 
