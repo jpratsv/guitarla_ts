@@ -12,6 +12,7 @@ const client = generateClient<Schema>();
 
 type GuitarType = Schema['Guitar']['type'];
 
+
 export default function GuitarDataTable() {
     const [guitars, setGuitars] = useState<GuitarType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -23,8 +24,12 @@ export default function GuitarDataTable() {
     const fetchGuitars = async () => {
         try {
             setLoading(true);
-            const { data: items } = await client.models.Guitar.list({ authMode: 'AWS_IAM' });
-            setGuitars(items || []);
+            const { data: items } = await client.models.Guitar.list();           
+            if (items) {
+                setGuitars(items);
+            } else {
+                setError('No se encontraron guitarras.');
+            }
         } catch (error) {
             console.error('Error obteniendo guitarras:', error);
             setError('No se pudieron obtener las guitarras.');
@@ -34,7 +39,10 @@ export default function GuitarDataTable() {
     };
 
     useEffect(() => {
-        fetchGuitars();
+        fetchGuitars().catch((error) => {
+            console.error("Error en fetchGuitars:", error);
+            setError("No se pudieron cargar las guitarras, intente nuevamente más tarde.");
+        });
     }, []);
 
     const handleDelete = async (id: string) => {
@@ -48,6 +56,7 @@ export default function GuitarDataTable() {
     };
 
     const columns: GridColDef[] = [
+        { field: 'id', headerName: 'ID', width: 100 }, // Asegurarse de que cada fila tiene un ID
         { field: 'name', headerName: 'Nombre', width: 150 },
         { field: 'description', headerName: 'Descripción', width: 200 },
         { field: 'price', headerName: 'Precio', width: 100 },
@@ -94,11 +103,13 @@ export default function GuitarDataTable() {
                 Añadir Guitarra
             </Button>
             {loading && <p className="text-center">Cargando guitarras...</p>}
-            {error && <p className="text-center">{error}</p>}
+            {error && <p className="text-center text-danger">{error}</p>} {/* Mostrar errores en rojo para visibilidad */}
             <div className="data-grid-container">
-                <DataGrid rows={guitars} columns={columns} pageSize={5} getRowId={(row) => row.id} />
+                {!loading && !error && (
+                    <DataGrid rows={guitars} columns={columns} pageSizeOptions={[5, 10, 20]} initialState={{ pagination: { paginationModel: { pageSize: 5 } } }} getRowId={(row) => row.id} />
+                )}
             </div>
-            {openAddModal && <AddGuitarModal open={openAddModal} onClose={() => setOpenAddModal(false)} refreshData={fetchGuitars} />}
+            {openAddModal && <AddGuitarModal open={openAddModal} onClose={() => setOpenAddModal(false)} onGuitarAdded={fetchGuitars} refreshData={fetchGuitars} />}
             {openModifyModal.open && openModifyModal.guitar && (
                 <ModifyGuitarModal
                     open={openModifyModal.open}

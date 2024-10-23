@@ -5,18 +5,25 @@ import { generateClient } from 'aws-amplify/data';
 const client = generateClient<Schema>();
 
 type AddGuitarModalProps = {
-    isOpen: boolean;
+
+    open: boolean;
+
     onClose: () => void;
-    onGuitarAdded: () => void; // Esta función se llamará después de añadir la guitarra
+
+    onGuitarAdded: () => void;
+
+    refreshData: () => Promise<void>;
+    
+
 };
 
-export default function AddGuitarModal({ isOpen, onClose, onGuitarAdded }: AddGuitarModalProps) {
+export default function AddGuitarModal({ open, onClose, onGuitarAdded }: AddGuitarModalProps) {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
 
-    if (!isOpen) {
+    if (!open) {
         return null;
     }
 

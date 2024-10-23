@@ -2,6 +2,9 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Authenticator } from '@aws-amplify/ui-react';
 import './GuitarAuth.css';
+import { Hub } from 'aws-amplify/utils';
+import GuitarDatatable from './GuitarDatatable';
+
 
 interface GuitarAuthProps {
     show: boolean;
@@ -27,5 +30,24 @@ const GuitarAuth: React.FC<GuitarAuthProps> = ({ show, handleClose }) => {
         </Modal>
     );
 };
+
+Hub.listen('auth', ({ payload }) => {
+    if (payload.event === 'signedIn') {
+        const mailusuari = payload.data.signInDetails?.loginId;
+        if (mailusuari === 'jpratsv@gmail.com') {
+            {/* Modal para GuitarDatatable */}
+            <Modal show={showDatatableModal} onHide={() => setShowDatatableModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Guitar Inventory</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <GuitarDatatable />
+                </Modal.Body>
+            </Modal>
+            
+        }
+    }
+});
+
 
 export default GuitarAuth;

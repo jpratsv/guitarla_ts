@@ -3,17 +3,10 @@ import { useCart } from './useCart'; // Importa desde el archivo donde está el 
 import GuitarAuth from './GuitarAuth';
 import './Header.css';
 
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useGuitarContext } from './GuitarContext';
-
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { state: { cart }, dispatch } = useCart(); // Asegúrate de usar el hook correctamente
   const [showAuthModal, setShowAuthModal] = useState(false);
-
-  const navigate = useNavigate();
-  const { showGuitarDatatable } = useGuitarContext(); 
 
   // Manejadores de evento para abrir/cerrar el carrito
   const handleMouseEnter = () => setIsCartOpen(true);
@@ -160,15 +153,6 @@ const Header: React.FC = () => {
                 />
               </button>
             </div>
-            {showGuitarDatatable && (
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate('/inventory')} // Navegar hacia /inventory
-                >
-                    Ver Inventario de Guitarras
-                </Button>
-            )}
           </nav>
         </div>
       </div>
